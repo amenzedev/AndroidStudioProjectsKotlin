@@ -119,14 +119,14 @@ class MainActivity : AppCompatActivity() {
                             if(binding.parentLayout.childCount > 1) binding.parentLayout.removeViewAt(1)
 
                             val trackingId = i.trackingId
-                            if (trackingId != null) {
-                                update_passenger_count(trackingId, i.boundingBox.left,i.boundingBox.right)
-                            }
                             val label = i.labels.firstOrNull()?.text +" : "+trackingId?: "Undefined"
                             if(label != "Undefined" && label.contains("Person",ignoreCase = true))
                             {
                                 val element = Draw(context = this, rect = i.boundingBox,text = i.labels.firstOrNull()?.text +" : "+trackingId?: "Undefined ",dimension_width = width,dimension_height = height, in_count = passengers_in_count, out_count = passengers_out_count)
                                 binding.parentLayout.addView(element)
+                                if (trackingId != null) {
+                                    update_passenger_count(trackingId, i.boundingBox.left,i.boundingBox.right)
+                                }
                             }
                             else{
                                 val score = Draw(context = this, rect = Rect(0,0,0,0),text = "",dimension_width = width,dimension_height = height, in_count = passengers_in_count, out_count = passengers_out_count)
