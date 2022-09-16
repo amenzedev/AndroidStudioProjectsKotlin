@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
             CustomObjectDetectorOptions.Builder(localModel)
                 .setDetectorMode(CustomObjectDetectorOptions.STREAM_MODE)
                 .enableClassification()
-                .setClassificationConfidenceThreshold(0.5f)
+                .setClassificationConfidenceThreshold(0.01f)
                 .setMaxPerObjectLabelCount(3)
                 .build()
 

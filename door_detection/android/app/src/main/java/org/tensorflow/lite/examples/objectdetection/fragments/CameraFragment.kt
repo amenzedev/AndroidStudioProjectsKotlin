@@ -95,9 +95,9 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        objectDetectorHelper = ObjectDetectorHelper(
+        ObjectDetectorHelper(
             context = requireContext(),
-            objectDetectorListener = this)
+            objectDetectorListener = this).also { objectDetectorHelper = it }
 
         // Initialize our background executor
         cameraExecutor = Executors.newSingleThreadExecutor()

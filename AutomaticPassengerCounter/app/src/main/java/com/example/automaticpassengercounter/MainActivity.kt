@@ -46,14 +46,14 @@ class MainActivity : AppCompatActivity() {
         },ContextCompat.getMainExecutor(this))
 
         val localModel = LocalModel.Builder()
-            .setAssetFilePath("custom.tflite")
+            .setAssetFilePath("mobile_object_labeler.tflite")
             .build()
 
         val customObjectDetectorOptions = CustomObjectDetectorOptions.Builder(localModel)
             .setDetectorMode(CustomObjectDetectorOptions.STREAM_MODE)
             .enableClassification()
-            .setClassificationConfidenceThreshold(0.5f)
-            .setMaxPerObjectLabelCount(3)
+            .setClassificationConfidenceThreshold(0.1f)
+            .setMaxPerObjectLabelCount(5)
             .build()
 
         objectDetetor = ObjectDetection.getClient(customObjectDetectorOptions)
