@@ -50,9 +50,9 @@ class MainActivity : AppCompatActivity() {
 
         }, ContextCompat.getMainExecutor(this))
 
-        objectDetectorHelper = ObjectDetectorHelper(
-            context = this,
-            objectDetectorListener = this)
+//        objectDetectorHelper = ObjectDetectorHelper(
+//            context = this,
+//            objectDetectorListener = this)
 
     }
 
