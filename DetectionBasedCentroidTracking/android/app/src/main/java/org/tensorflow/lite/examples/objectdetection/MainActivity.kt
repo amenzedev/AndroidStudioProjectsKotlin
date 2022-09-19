@@ -20,6 +20,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import org.tensorflow.lite.examples.objectdetection.databinding.ActivityMainBinding
+import java.util.HashMap
 
 /**
  * Main entry point into our app. This app follows the single-activity pattern, and all
@@ -43,5 +44,13 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    companion object{
+        var incoming_passengers = HashMap<String, IntArray>()
+        var outgoing_passengers = HashMap<String, IntArray>()
+        var passengers_in_count = 0
+        var passengers_out_count = 0
+        lateinit var tracking:CentroidTracking
     }
 }

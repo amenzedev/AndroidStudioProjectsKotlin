@@ -1239,6 +1239,7 @@ drawable icn_chevron_up
 drawable mtrl_snackbar_background
 drawable mtrl_tabs_default_indicator
 drawable navigation_empty_icon
+drawable navistar_logo
 drawable notification_action_background
 drawable notification_bg
 drawable notification_bg_low

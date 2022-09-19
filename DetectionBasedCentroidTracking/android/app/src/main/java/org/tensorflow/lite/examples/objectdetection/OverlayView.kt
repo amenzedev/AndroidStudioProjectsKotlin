@@ -34,13 +34,32 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
 
     private var scaleFactor: Float = 1f
 
+
     private var bounds = Rect()
-    protected lateinit var tracking:CentroidTracking
+
     private var tracked_objects = HashMap<String, Int>()
+
+
+
+
+    var space_among_score_texts = 1080/3
+    var Passengers_In = Rect(50, 50, space_among_score_texts, 100)
+    var Passengers_net=Rect(50+space_among_score_texts, 50, 2*space_among_score_texts, 100)
+    var Passengers_out=Rect(2*space_among_score_texts+50, 50, 3*space_among_score_texts, 100)
+    var net = MainActivity.passengers_in_count - MainActivity.passengers_out_count
+
+    var leftBoundary = (0.4* ImageWidth).toInt()
+    var rightBoundary = (0.9* ImageWidth).toInt()
+    var middleBoundary = (0.65* ImageWidth).toInt()
+
+
 
     init {
         initPaints()
-        tracking = CentroidTracking(15)
+        space_among_score_texts = ImageWidth/3
+        MainActivity.tracking = CentroidTracking(10)
+        middleBoundary = (0.5* ImageWidth).toInt()
+
     }
 
     fun clear() {
@@ -56,7 +75,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
         textBackgroundPaint.style = Paint.Style.FILL
         textBackgroundPaint.textSize = 50f
 
-        textPaint.color = Color.WHITE
+        textPaint.color = Color.YELLOW
         textPaint.style = Paint.Style.FILL
         textPaint.textSize = 50f
 
@@ -67,7 +86,13 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
-        System.out.println("******************\n${results}\n*************\n")
+        canvas.drawText("In : ${MainActivity.passengers_in_count}",Passengers_In.left.toFloat(), Passengers_In.top.toFloat(),textPaint)
+        canvas.drawText("Out : ${MainActivity.passengers_out_count}",Passengers_out.left.toFloat(), Passengers_out.top.toFloat(),textPaint)
+        net = MainActivity.passengers_in_count - MainActivity.passengers_out_count
+        canvas.drawText("Net : ${net}",Passengers_net.left.toFloat(), Passengers_net.top.toFloat(),textPaint)
+        canvas.drawRect(50F,150F, middleBoundary.toFloat(), ImageHeight-50F,boxPaint)
+        //canvas.drawRect(50F,150F,MainActivity.width_boundary*2-50F,MainActivity.height_boundary-50F,doorPaint)
+
         val rectangles =ArrayList<RectF>()
         for (result in results) {
             if(result.categories[0].label != "person")
@@ -84,18 +109,10 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
             rectangles.add(drawableRect)
 
         }
-        val tracking_results = tracking.update(rectangles)
+        val tracking_results = MainActivity.tracking.update(rectangles)
         for ((id, centroid) in tracking_results.entries) {
             var key = centroid.first.toString()+"+"+centroid.second.toString()
             tracked_objects[key]=id
-//            println(
-//                String.format(
-//                    "id: %d centerX: %d centerY: %d",
-//                    id,
-//                    centroid.first,
-//                    centroid.second
-//                )
-//            )
         }
         for (result in results) {
             if(result.categories[0].label != "person")
@@ -115,8 +132,8 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
 
             // Draw bounding box around detected objects
             val drawableRect = RectF(left, top, right, bottom)
-            //val tracking_results = tracking.update(rectangles)
-            //rectangles.add(drawableRect)
+            //update the count
+            update_passenger_count(tracked_objects[key].toString(),left.toInt(),right.toInt())
             canvas.drawRect(drawableRect, boxPaint)
 
             // Create text to display alongside detected objects
@@ -148,6 +165,8 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
     ) {
         results = detectionResults
 
+
+
         // PreviewView is in FILL_START mode. So we need to scale up the bounding box to match with
         // the size that the captured images will be displayed.
         scaleFactor = max(width * 1f / imageWidth, height * 1f / imageHeight)
@@ -155,5 +174,75 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
 
     companion object {
         private const val BOUNDING_RECT_TEXT_PADDING = 8
+        var ImageWidth = 1080
+        var ImageHeight = 2000
     }
+
+
+    fun update_passenger_count(tracking_id:String, object_left_corner:Int, object_right_corner:Int)
+    {
+        val number = IntArray(2)
+        number[0]=0
+        number[1]=0
+        //leftBoundary = (0.4* ImageWidth).toInt()
+        //rightBoundary = (0.9* ImageWidth).toInt()
+        middleBoundary = (0.5* ImageWidth).toInt()
+        //passengers_in_count++
+
+
+        val mid = ((object_left_corner+object_right_corner)/2).toInt()
+
+        //incoming
+        if(MainActivity.incoming_passengers[tracking_id]?.get(0)== null)
+        {
+            //System.out.println("*****\ninitializing\n*******")
+            MainActivity.incoming_passengers[tracking_id] = number
+
+        }
+        else if(mid<middleBoundary)
+        {
+            MainActivity.incoming_passengers[tracking_id]?.set(0,1)
+            //println(incoming_passengers[tracking_id]!![0])
+            //System.out.println("someone is comming")
+
+        }
+        else if(mid > middleBoundary)
+        {
+            if(MainActivity.incoming_passengers[tracking_id]!![0]==1)
+            {
+                MainActivity.passengers_in_count++
+                //System.out.println("someone got in")
+                MainActivity.incoming_passengers.remove(tracking_id)
+            }
+
+        }
+
+
+        //out going
+        if(MainActivity.outgoing_passengers[tracking_id]?.get(1)== null)
+        {
+            //System.out.println("*****\ninitializing\n*******")
+            MainActivity.outgoing_passengers[tracking_id] = number
+
+        }
+        else if(mid > middleBoundary)// && object_right_corner <rightBoundary)
+        {
+            MainActivity.outgoing_passengers[tracking_id]?.set(1,1)
+            //println(incoming_passengers[tracking_id]!![0])
+
+        }
+        else if(mid< middleBoundary)//object_right_corner>leftBoundary &&
+        {
+            if(MainActivity.outgoing_passengers[tracking_id]!![1]==1)
+            {
+                MainActivity.passengers_out_count++
+                MainActivity.outgoing_passengers.remove(tracking_id)
+            }
+
+        }
+
+
+
+    }
+
 }

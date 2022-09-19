@@ -52,6 +52,10 @@
         "source": "/home/user/AndroidStudioProjectsKotlin/DetectionBasedCentroidTracking/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png"
     },
     {
+        "merged": "/home/user/AndroidStudioProjectsKotlin/DetectionBasedCentroidTracking/android/app/build/intermediates/merged_res/debug/drawable_navistar_logo.png.flat",
+        "source": "/home/user/AndroidStudioProjectsKotlin/DetectionBasedCentroidTracking/android/app/src/main/res/drawable/navistar_logo.png"
+    },
+    {
         "merged": "/home/user/AndroidStudioProjectsKotlin/DetectionBasedCentroidTracking/android/app/build/intermediates/merged_res/debug/drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
         "source": "/home/user/AndroidStudioProjectsKotlin/DetectionBasedCentroidTracking/android/app/build/generated/res/pngs/debug/drawable-anydpi-v24/ic_launcher_foreground.xml"
     },

@@ -26,6 +26,7 @@ import org.tensorflow.lite.support.image.ops.Rot90Op
 import org.tensorflow.lite.task.core.BaseOptions
 import org.tensorflow.lite.task.vision.detector.Detection
 import org.tensorflow.lite.task.vision.detector.ObjectDetector
+import java.util.HashMap
 
 class ObjectDetectorHelper(
   var threshold: Float = 0.5f,
@@ -86,8 +87,7 @@ class ObjectDetectorHelper(
             when (currentModel) {
                 MODEL_MOBILENETV1 -> "mobilenetv1.tflite"
                 MODEL_EFFICIENTDETV0 -> "efficientdet-lite0.tflite"
-                MODEL_EFFICIENTDETV1 -> "efficientdet-lite1.tflite"
-                MODEL_EFFICIENTDETV2 -> "efficientdet-lite2.tflite"
+                OUR_MODEL -> "our_model.tflite"
                 else -> "mobilenetv1.tflite"
             }
 
@@ -147,7 +147,8 @@ class ObjectDetectorHelper(
         const val DELEGATE_NNAPI = 2
         const val MODEL_MOBILENETV1 = 0
         const val MODEL_EFFICIENTDETV0 = 1
-        const val MODEL_EFFICIENTDETV1 = 2
-        const val MODEL_EFFICIENTDETV2 = 3
+        const val OUR_MODEL = 2
+
     }
+
 }
