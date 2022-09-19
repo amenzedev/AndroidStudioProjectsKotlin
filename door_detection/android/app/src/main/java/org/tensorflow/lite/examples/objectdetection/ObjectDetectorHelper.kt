@@ -28,11 +28,11 @@ import org.tensorflow.lite.task.vision.detector.Detection
 import org.tensorflow.lite.task.vision.detector.ObjectDetector
 
 class ObjectDetectorHelper(
-  var threshold: Float = 0.99f,
+  var threshold: Float = 0.75f,
   var numThreads: Int = 2,
-  var maxResults: Int = 3,
+  var maxResults: Int = 1,
   var currentDelegate: Int = 0,
-  var currentModel: Int = 4,
+  var currentModel: Int = 1,
   val context: Context,
   val objectDetectorListener: DetectorListener?
 ) {
@@ -82,13 +82,14 @@ class ObjectDetectorHelper(
 
         optionsBuilder.setBaseOptions(baseOptionsBuilder.build())
 
-        val modelName ="home_door.tflite"
+        val modelName =
             when (currentModel) {
                 MODEL_MOBILENETV1 -> "mobilenetv1.tflite"
                 MODEL_EFFICIENTDETV0 -> "efficientdet-lite0.tflite"
                 MODEL_EFFICIENTDETV1 -> "efficientdet-lite1.tflite"
                 MODEL_EFFICIENTDETV2 -> "efficientdet-lite2.tflite"
                 CUSTOM_MODEL -> "home_door.tflite"
+                DOOR_DETECTOR -> "custom_door.tflite"
                 else -> "mobilenetv1.tflite"
             }
         //"home_door.tflite"
@@ -152,5 +153,6 @@ class ObjectDetectorHelper(
         const val MODEL_EFFICIENTDETV1 = 2
         const val MODEL_EFFICIENTDETV2 = 3
         const val CUSTOM_MODEL = 4
+        const val DOOR_DETECTOR = 5
     }
 }
