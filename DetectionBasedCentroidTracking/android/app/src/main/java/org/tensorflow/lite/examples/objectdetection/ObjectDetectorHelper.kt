@@ -33,7 +33,7 @@ class ObjectDetectorHelper(
   var numThreads: Int = 2,
   var maxResults: Int = 3,
   var currentDelegate: Int = 0,
-  var currentModel: Int = 1,
+  var currentModel: Int = 2,
   val context: Context,
   val objectDetectorListener: DetectorListener?
 ) {
@@ -83,11 +83,11 @@ class ObjectDetectorHelper(
 
         optionsBuilder.setBaseOptions(baseOptionsBuilder.build())
 
-        val modelName =
+        val modelName ="efficientdet-lite0.tflite"
             when (currentModel) {
                 MODEL_MOBILENETV1 -> "mobilenetv1.tflite"
                 MODEL_EFFICIENTDETV0 -> "efficientdet-lite0.tflite"
-                OUR_MODEL -> "our_model.tflite"
+                OUR_MODEL -> "model_2.tflite"
                 else -> "mobilenetv1.tflite"
             }
 
