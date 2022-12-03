@@ -249,14 +249,15 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
             if(MainActivity.incoming_passengers[tracking_id]!![0]==1 && MainActivity.incoming_passengers[tracking_id]!![1]!=1)
             {
                 MainActivity.incoming_passengers[tracking_id]?.set(1,1)
-                if(MainActivity.counted_objects.contains(tracking_id) == false )
-                {
-                    MainActivity.passengers_in_count++
-                    MainActivity.counted_objects.add(tracking_id)
-                    if(tracking_id.toInt()>MainActivity.largestID)
-                        MainActivity.largestID=tracking_id.toInt()
-
-                }
+                MainActivity.passengers_in_count++
+//                if(MainActivity.counted_objects.contains(tracking_id) == false )
+//                {
+//                    MainActivity.passengers_in_count++
+//                    MainActivity.counted_objects.add(tracking_id)
+//                    if(tracking_id.toInt()>MainActivity.largestID)
+//                        MainActivity.largestID=tracking_id.toInt()
+//
+//                }
                 //System.out.println("someone got in"
             }
             else{
@@ -284,12 +285,13 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
             if(MainActivity.outgoing_passengers[tracking_id]!![1]==1 && MainActivity.outgoing_passengers[tracking_id]!![0]!=1 )
             {
                 MainActivity.outgoing_passengers[tracking_id]?.set(0,1)
+                MainActivity.passengers_out_count++
 
-                if( tracking_id.toInt() > MainActivity.largestID && MainActivity.counted_objects.contains(tracking_id) == false)
-                {
-                    MainActivity.passengers_out_count++
-                    MainActivity.counted_objects.add(tracking_id)
-                }
+//                if( tracking_id.toInt() > MainActivity.largestID && MainActivity.counted_objects.contains(tracking_id) == false)
+//                {
+//                    MainActivity.passengers_out_count++
+//                    MainActivity.counted_objects.add(tracking_id)
+//                }
 
             }
             else{
