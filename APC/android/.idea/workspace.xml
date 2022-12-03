@@ -16,6 +16,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a999e3ef-cd5c-4548-b3f1-f9a296295af2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/org/tensorflow/lite/examples/objectdetection/OverlayView.class" beforeDir="false" afterPath="$PROJECT_DIR$/app/build/tmp/kotlin-classes/debug/org/tensorflow/lite/examples/objectdetection/OverlayView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/tensorflow/lite/examples/objectdetection/ObjectDetectorHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/tensorflow/lite/examples/objectdetection/ObjectDetectorHelper.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/org/tensorflow/lite/examples/objectdetection/OverlayView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/tensorflow/lite/examples/objectdetection/OverlayView.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../DetectionBasedCentroidTracking/android/.gradle/7.4/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../DetectionBasedCentroidTracking/android/.gradle/7.4/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../DetectionBasedCentroidTracking/android/.gradle/7.4/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../DetectionBasedCentroidTracking/android/.gradle/7.4/checksums/sha1-checksums.bin" afterDir="false" />
