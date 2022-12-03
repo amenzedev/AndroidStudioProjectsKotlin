@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/home/user/AndroidStudioProjectsKotlin/APC/android/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/info_bottom_sheet.xml",
+        "source": "/home/user/AndroidStudioProjectsKotlin/APC/android/app/src/main/res/layout/info_bottom_sheet.xml"
+    },
+    {
+        "merged": "/home/user/AndroidStudioProjectsKotlin/APC/android/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_main.xml",
+        "source": "/home/user/AndroidStudioProjectsKotlin/APC/android/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/user/AndroidStudioProjectsKotlin/APC/android/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_camera.xml",
+        "source": "/home/user/AndroidStudioProjectsKotlin/APC/android/app/src/main/res/layout/fragment_camera.xml"
+    }
+]
