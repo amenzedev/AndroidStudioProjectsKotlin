@@ -64,7 +64,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
     init {
         initPaints()
         space_among_score_texts = ImageWidth/3
-        MainActivity.tracking = CentroidTracking(8)
+        MainActivity.tracking = CentroidTracking(4)
         middleBoundary = (0.5* ImageWidth).toInt()
     }
 
@@ -126,7 +126,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
 
             // Draw bounding box around detected objects
             val drawableRect = RectF(left, top, right, bottom)
-            val vertex_offset = ((right-left)/8).toInt()
+            val vertex_offset = ((right-left)/2).toInt() // centroid to center
 
             if(tracked_objects[key] != null)
             {
