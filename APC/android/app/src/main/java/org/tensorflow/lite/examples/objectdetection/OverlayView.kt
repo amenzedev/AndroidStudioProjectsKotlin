@@ -64,7 +64,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
     init {
         initPaints()
         space_among_score_texts = ImageWidth/3
-        MainActivity.tracking = CentroidTracking(6)
+        MainActivity.tracking = CentroidTracking(8)
         middleBoundary = (0.5* ImageWidth).toInt()
     }
 
