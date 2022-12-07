@@ -18,6 +18,7 @@ package org.tensorflow.lite.examples.objectdetection
 
 import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
 import androidx.appcompat.app.AppCompatActivity
 import org.tensorflow.lite.examples.objectdetection.databinding.ActivityMainBinding
 import java.util.HashMap
@@ -55,5 +56,6 @@ class MainActivity : AppCompatActivity() {
         lateinit var tracking:CentroidTracking
         var counted_objects : MutableList<String> = mutableListOf<String>()
         var  largestID = 0
+        var counting_delay = SystemClock.uptimeMillis()
     }
 }

@@ -50,6 +50,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
     var leftBoundary = (0.4* ImageWidth).toInt()
     var rightBoundary = (0.9* ImageWidth).toInt()
     var middleBoundary = (0.65* ImageWidth).toInt()
+    var delay = 500
 
 
 
@@ -64,7 +65,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
     init {
         initPaints()
         space_among_score_texts = ImageWidth/3
-        MainActivity.tracking = CentroidTracking(4)
+        MainActivity.tracking = CentroidTracking(5)
         middleBoundary = (0.5* ImageWidth).toInt()
     }
 
@@ -213,6 +214,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
         var ImageWidth = 320
         var ImageHeight = 320
         var door_status = false
+
     }
 
 
@@ -249,7 +251,16 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
             if(MainActivity.incoming_passengers[tracking_id]!![0]==1 && MainActivity.incoming_passengers[tracking_id]!![1]!=1)
             {
                 MainActivity.incoming_passengers[tracking_id]?.set(1,1)
-                MainActivity.passengers_in_count++
+                if(SystemClock.uptimeMillis()-MainActivity.counting_delay>delay)
+                {
+                    MainActivity.passengers_in_count++
+                }
+//                Log.d("counting_delay",
+//                    (SystemClock.uptimeMillis()-MainActivity.counting_delay).toString()
+//                )
+                MainActivity.counting_delay= SystemClock.uptimeMillis()
+
+
 //                if(MainActivity.counted_objects.contains(tracking_id) == false )
 //                {
 //                    MainActivity.passengers_in_count++
@@ -285,7 +296,15 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
             if(MainActivity.outgoing_passengers[tracking_id]!![1]==1 && MainActivity.outgoing_passengers[tracking_id]!![0]!=1 )
             {
                 MainActivity.outgoing_passengers[tracking_id]?.set(0,1)
-                MainActivity.passengers_out_count++
+                if(SystemClock.uptimeMillis()-MainActivity.counting_delay>delay)
+                {
+                    MainActivity.passengers_out_count++
+                }
+//                Log.d("counting_delay",
+//                    (SystemClock.uptimeMillis()-MainActivity.counting_delay).toString()
+//                )
+                MainActivity.counting_delay= SystemClock.uptimeMillis()
+
 
 //                if( tracking_id.toInt() > MainActivity.largestID && MainActivity.counted_objects.contains(tracking_id) == false)
 //                {
