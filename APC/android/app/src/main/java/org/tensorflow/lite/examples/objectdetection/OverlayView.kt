@@ -50,7 +50,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
     var leftBoundary = (0.4* ImageWidth).toInt()
     var rightBoundary = (0.9* ImageWidth).toInt()
     var middleBoundary = (0.65* ImageWidth).toInt()
-    var delay = 500
+    var delay = 1000
 
 
 
@@ -259,6 +259,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
 //                    (SystemClock.uptimeMillis()-MainActivity.counting_delay).toString()
 //                )
                 MainActivity.counting_delay= SystemClock.uptimeMillis()
+                MainActivity.outgoing_passengers.remove(tracking_id)
 
 
 //                if(MainActivity.counted_objects.contains(tracking_id) == false )
@@ -304,6 +305,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
 //                    (SystemClock.uptimeMillis()-MainActivity.counting_delay).toString()
 //                )
                 MainActivity.counting_delay= SystemClock.uptimeMillis()
+                MainActivity.incoming_passengers.remove(tracking_id)
 
 
 //                if( tracking_id.toInt() > MainActivity.largestID && MainActivity.counted_objects.contains(tracking_id) == false)
