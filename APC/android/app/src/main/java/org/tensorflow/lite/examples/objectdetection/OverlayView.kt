@@ -50,7 +50,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
     var leftBoundary = (0.4* ImageWidth).toInt()
     var rightBoundary = (0.9* ImageWidth).toInt()
     var middleBoundary = (0.65* ImageWidth).toInt()
-    var delay = 300
+    var delay = 1000
 
 
 
