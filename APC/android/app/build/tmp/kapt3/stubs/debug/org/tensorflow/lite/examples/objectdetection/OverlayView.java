@@ -14,7 +14,7 @@ public final class OverlayView extends android.view.View {
     private int leftBoundary;
     private int rightBoundary;
     private int middleBoundary;
-    private int delay = 1000;
+    private int delay = 1300;
     private int space_among_score_texts = 360;
     @org.jetbrains.annotations.NotNull()
     private android.graphics.Rect Passengers_In;

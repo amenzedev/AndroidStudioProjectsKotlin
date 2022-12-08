@@ -50,7 +50,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
     var leftBoundary = (0.4* ImageWidth).toInt()
     var rightBoundary = (0.9* ImageWidth).toInt()
     var middleBoundary = (0.65* ImageWidth).toInt()
-    var delay = 1000
+    var delay = 300
 
 
 
@@ -254,12 +254,14 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
                 if(SystemClock.uptimeMillis()-MainActivity.counting_delay>delay)
                 {
                     MainActivity.passengers_in_count++
+                    MainActivity.counted_objects.add(tracking_id)
                 }
-//                Log.d("counting_delay",
+//                Log.d("counting_offset",
 //                    (SystemClock.uptimeMillis()-MainActivity.counting_delay).toString()
 //                )
                 MainActivity.counting_delay= SystemClock.uptimeMillis()
                 MainActivity.outgoing_passengers.remove(tracking_id)
+
 
 
 //                if(MainActivity.counted_objects.contains(tracking_id) == false )
@@ -279,6 +281,9 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
         }
 
 
+        if(MainActivity.counted_objects.contains(tracking_id) == true)
+            return
+
         //out going
         if(MainActivity.outgoing_passengers[tracking_id]?.get(1)== null)
         {
@@ -292,20 +297,24 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
             //println(incoming_passengers[tracking_id]!![0])
 
         }
-        else if(object_right_corner< middleBoundary)//object_right_corner>leftBoundary &&
+        else if(object_right_corner < middleBoundary)//object_right_corner>leftBoundary &&
         {
             if(MainActivity.outgoing_passengers[tracking_id]!![1]==1 && MainActivity.outgoing_passengers[tracking_id]!![0]!=1 )
             {
+
                 MainActivity.outgoing_passengers[tracking_id]?.set(0,1)
                 if(SystemClock.uptimeMillis()-MainActivity.counting_delay>delay)
                 {
                     MainActivity.passengers_out_count++
+                    MainActivity.incoming_passengers.remove(tracking_id)
+                    Log.d("counting_offset",(SystemClock.uptimeMillis()-MainActivity.counting_delay).toString())
+
                 }
 //                Log.d("counting_delay",
 //                    (SystemClock.uptimeMillis()-MainActivity.counting_delay).toString()
 //                )
                 MainActivity.counting_delay= SystemClock.uptimeMillis()
-                MainActivity.incoming_passengers.remove(tracking_id)
+
 
 
 //                if( tracking_id.toInt() > MainActivity.largestID && MainActivity.counted_objects.contains(tracking_id) == false)
