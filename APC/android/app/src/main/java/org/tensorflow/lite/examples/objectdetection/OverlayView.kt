@@ -33,6 +33,7 @@ import kotlin.math.max
 import org.tensorflow.lite.task.vision.detector.Detection
 import java.util.ArrayList
 import java.util.HashMap
+import kotlin.math.abs
 
 class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
@@ -50,7 +51,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
     var leftBoundary = (0.4* ImageWidth).toInt()
     var rightBoundary = (0.9* ImageWidth).toInt()
     var middleBoundary = (0.65* ImageWidth).toInt()
-    var delay = 1000
+    var delay = 700
 
 
 
@@ -93,7 +94,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
-        middleBoundary = (0.4* ImageWidth).toInt()
+        //middleBoundary = (0.4* ImageWidth).toInt()
 
         canvas.drawText("In : ${MainActivity.passengers_in_count}",Passengers_In.left.toFloat(), Passengers_In.top.toFloat(),textPaint)
         canvas.drawText("Out : ${MainActivity.passengers_out_count}",Passengers_out.left.toFloat(), Passengers_out.top.toFloat(),textPaint)
@@ -177,12 +178,16 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
         //tracking id creation
         val rectangles = ArrayList<RectF>()
         for (result in results) {
+            val boundingBox = result.boundingBox
             //System.out.println(result.categories[0].label + " " +String.format("%.2f", result.categories[0].score))
             if(result.categories[0].label == "door") {
                 //implement the door status here
+                middleBoundary = (boundingBox.right * scaleFactor).toInt()
+                if(abs(middleBoundary - (0.4* ImageWidth).toInt()) > 20)
+                    middleBoundary=(0.4* ImageWidth).toInt()
 
             }
-            val boundingBox = result.boundingBox
+
 
             val top = boundingBox.top * scaleFactor
             val bottom = boundingBox.bottom * scaleFactor
@@ -226,7 +231,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
         //leftBoundary = (0.4* ImageWidth).toInt()
         //rightBoundary = (0.9* ImageWidth).toInt()
         Log.d("value",MainActivity.counted_objects.contains("100").toString())
-        middleBoundary = (0.5* ImageWidth).toInt()
+        //middleBoundary = (0.5* ImageWidth).toInt()
         //passengers_in_count++
 
 
@@ -250,11 +255,12 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
         {
             if(MainActivity.incoming_passengers[tracking_id]!![0]==1 && MainActivity.incoming_passengers[tracking_id]!![1]!=1)
             {
-                MainActivity.incoming_passengers[tracking_id]?.set(1,1)
+
                 if(SystemClock.uptimeMillis()-MainActivity.counting_delay>delay)
                 {
+                    MainActivity.incoming_passengers[tracking_id]?.set(1,1)
                     MainActivity.passengers_in_count++
-                    MainActivity.counted_objects.add(tracking_id)
+                    //MainActivity.counted_objects.add(tracking_id)
                 }
 //                Log.d("counting_offset",
 //                    (SystemClock.uptimeMillis()-MainActivity.counting_delay).toString()
@@ -302,9 +308,10 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
             if(MainActivity.outgoing_passengers[tracking_id]!![1]==1 && MainActivity.outgoing_passengers[tracking_id]!![0]!=1 )
             {
 
-                MainActivity.outgoing_passengers[tracking_id]?.set(0,1)
+
                 if(SystemClock.uptimeMillis()-MainActivity.counting_delay>delay)
                 {
+                    MainActivity.outgoing_passengers[tracking_id]?.set(0,1)
                     MainActivity.passengers_out_count++
                     MainActivity.incoming_passengers.remove(tracking_id)
                     Log.d("counting_offset",(SystemClock.uptimeMillis()-MainActivity.counting_delay).toString())

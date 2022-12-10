@@ -122,7 +122,9 @@ public class CentroidTracking {
 
             // use cols calc to find rows
             // slice first elem of each column
-            ArrayList<Pair<Float, Integer>> temp_rows = new ArrayList<>();
+
+            //below code is old for the rows
+            /*ArrayList<Pair<Float, Integer>> temp_rows = new ArrayList<>();
             int k = 0;
             for(ArrayList<Float> i: D_copy) {
                 Float t = i.get(0);
@@ -134,7 +136,32 @@ public class CentroidTracking {
             for(Pair<Float, Integer> x: temp_rows){
                 int n = x.second;
                 rows.add(n);
+            }*/
+
+            ArrayList<Float> temp_rows1 = new ArrayList<>(); //rows in unsorted order
+            ArrayList<Float> temp_rows2 = new ArrayList<>(); //rows to be sorted
+            for(ArrayList<Float> i: D_copy) {
+                Float t = i.get(0);
+                temp_rows1.add(t);
+                temp_rows2.add(t);
             }
+
+            Collections.sort(temp_rows2);
+            ArrayList<Integer> visited_rows= new ArrayList<>();
+            for(int i=0;i<temp_rows2.size();i++)
+            {
+                for(int j=0;j<temp_rows1.size();j++)
+                {
+                    if(temp_rows1.get(j).equals(temp_rows2.get(i)) && !visited_rows.contains(j))
+                    {
+                        rows.add(j);
+                        visited_rows.add(j);
+                        break;
+
+                    }
+                }
+            }
+
 
             Set<Integer> usedRows = new HashSet<Integer>();
             Set<Integer> usedCols = new HashSet<Integer>();
@@ -144,6 +171,10 @@ public class CentroidTracking {
                 if(usedRows.contains(rows.get(i)) || usedCols.contains(cols.get(i))){
                     continue;
                 }
+
+                if(D_copy.get(i).get(0)>70f)
+                    continue;
+
 
                 //otherwise, grab the object ID for the current row, set its new centroid,
                 // and reset the disappeared counter
